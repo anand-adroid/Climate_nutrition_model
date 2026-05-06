@@ -54,31 +54,44 @@ st.set_page_config(
 # ── Custom CSS: fix sidebar caption overlap on slider hover ──
 st.markdown("""
 <style>
-/* Add breathing room below every sidebar caption so slider
-   tooltips do not obscure the text beneath them. */
+/* ── Sidebar spacing: prevent slider tooltips overlapping captions ── */
+
+/* Give each slider/select_slider extra bottom margin so the tooltip
+   bubble (which appears below the thumb) has room before the next element. */
+[data-testid="stSidebar"] .stSlider {
+    margin-bottom: 1.2rem !important;
+}
+[data-testid="stSidebar"] .stSelectSlider {
+    margin-bottom: 1.2rem !important;
+}
+
+/* Captions (the "→ 50 kg N/ha" helper lines) — compact but clear */
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
+    margin-top: -0.8rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+/* Body text in sidebar */
 [data-testid="stSidebar"] .stMarkdown p {
-    margin-bottom: 0.15rem !important;
+    margin-bottom: 0.2rem !important;
     line-height: 1.35 !important;
 }
-[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
-    padding-bottom: 0.6rem !important;
-    margin-bottom: 0.25rem !important;
-}
-/* Extra space after each slider widget so the tooltip
-   popup does not collide with the caption of the NEXT widget. */
-[data-testid="stSidebar"] .stSlider,
-[data-testid="stSidebar"] .stSelectSlider {
-    margin-bottom: 0.15rem !important;
-}
-/* Prevent sidebar section headings from sitting too tight */
+
+/* Section headings */
 [data-testid="stSidebar"] h3 {
-    margin-top: 0.3rem !important;
-    margin-bottom: 0.3rem !important;
+    margin-top: 0.4rem !important;
+    margin-bottom: 0.4rem !important;
 }
-/* Make sidebar dividers thinner */
+
+/* Dividers */
 [data-testid="stSidebar"] hr {
     margin-top: 0.5rem !important;
     margin-bottom: 0.5rem !important;
+}
+
+/* Ensure slider tooltip (popover) renders above other elements */
+[data-testid="stSidebar"] [data-testid="stThumbValue"] {
+    z-index: 999 !important;
 }
 </style>
 """, unsafe_allow_html=True)
